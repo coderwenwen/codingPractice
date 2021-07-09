@@ -12,15 +12,31 @@ class ReverseWordsInAStringClass(object):
             return ""
 
         tempList = list(s)
-        for frontIndex, letter in enumerate(tempList):
-            backIndex = len(s)-frontIndex-1
-            if backIndex > frontIndex:
-                placeholder = tempList[backIndex]
-                tempList[frontIndex] = placeholder
-                tempList[backIndex] = letter
+        i = len(tempList) - 1
+        j = -1
+        stringResult = ""
+        while i >= 0:
+            item = tempList[i]
+            if item == ' ':
+                if j != -1:
+                    wholeWord = ''.join(tempList[i+1:j+1])
+                    if stringResult == "":
+                        stringResult = wholeWord
+                    else:
+                        stringResult = stringResult + " " + wholeWord
+                    j = -1
+
             else:
-                break
-        return "".join(str(x) for x in tempList)
+                # start of a whole word
+                if j == -1:
+                    j = i
+                if i == 0 and tempList[i] != " " and stringResult == "":
+                    stringResult = stringResult + ''.join(tempList[i:j+1])
+                elif i == 0 and tempList[i] != " " and stringResult != "":
+                    stringResult = stringResult + " " + ''.join(tempList[i:j+1])
+            i = i - 1
+
+        return stringResult
 
 
 class ReverseWordsInAStringIIITest(unittest.TestCase):
@@ -28,17 +44,21 @@ class ReverseWordsInAStringIIITest(unittest.TestCase):
         str = ""
         self.assertEqual(ReverseWordsInAStringClass.reverseWords(self, str), "")
 
-    def test_OneWord(self):
-        str = "abc"
-        self.assertEqual(ReverseWordsInAStringClass.reverseWords(self, str), "cba")
-
     def test_TwoWord(self):
-        str = "abc def"
-        self.assertEqual(ReverseWordsInAStringClass.reverseWords(self, str), "fed cba")
+        str = "  hello world  "
+        self.assertEqual(ReverseWordsInAStringClass.reverseWords(self, str), "world hello")
+
+    def test_ThreeWord(self):
+        str = "a good   example"
+        self.assertEqual(ReverseWordsInAStringClass.reverseWords(self, str), "example good a")
 
     def test_Sentence(self):
-        str = "Hi I am Wendy"
-        self.assertEqual(ReverseWordsInAStringClass.reverseWords(self, str), "ydneW ma I iH")
+        str = "  Bob    Loves  Alice   "
+        self.assertEqual(ReverseWordsInAStringClass.reverseWords(self, str), "Alice Loves Bob")
+
+    def test_Sentence2(self):
+        str = "the sky is blue"
+        self.assertEqual(ReverseWordsInAStringClass.reverseWords(self, str), "blue is sky the")
 
 
 
