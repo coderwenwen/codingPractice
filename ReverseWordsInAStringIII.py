@@ -11,37 +11,29 @@ class ReverseWordsInAStringIIIClass(object):
         if s == "":
             return ""
 
-        tempList = list(s)
-        tempWord = ""
-        result = ""
-        for letter in enumerate(tempList):
-            if letter != "":
-                tempWord += letter
-            else:
-                result += ReverseWordsInAStringIIIClass.reverseWord(self, tempWord) + " "
-                tempWord = ""
-        return result
-
-    def reverseWord(self, s):
-        if s == "":
+        tempList = s.split()
+        wordCount = len(tempList)
+        if wordCount == 0:
             return ""
 
-        tempList = list(s)
-        for frontIndex, letter in enumerate(tempList):
-            backIndex = len(s)-frontIndex-1
-            if backIndex > frontIndex:
-                placeholder = tempList[backIndex]
-                tempList[frontIndex] = placeholder
-                tempList[backIndex] = letter
-            else:
-                break
-        return "".join(str(x) for x in tempList)
-
+        else:
+            index = 0
+            stringResult = ""
+            while index < wordCount:
+                word = tempList[index]
+                reverseWord = word[::-1]
+                if stringResult == "":
+                    stringResult = reverseWord
+                else:
+                    stringResult = stringResult +  " " + reverseWord
+                index = index + 1
+            return stringResult
 
 class ReverseWordsInAStringIIITest(unittest.TestCase):
     def test_emptyStr(self):
         str = ""
         self.assertEqual(ReverseWordsInAStringIIIClass.reverseWords(self, str), "")
+
 
     def test_OneWord(self):
         str = "Let's take LeetCode contest"
