@@ -19,7 +19,7 @@ class RomanToInteger(object):
         romanToIntDict["XL"] = 40
         romanToIntDict["XC"] = 90
         romanToIntDict["C"] = 100
-        romanToIntDict["CD"] = 500
+        romanToIntDict["CD"] = 400
         romanToIntDict["CM"] = 900
 
         romanToIntDict["V"] = 5
@@ -76,7 +76,7 @@ class RomanToIntegerTest(unittest.TestCase):
         self.assertEqual(RomanToInteger.romanToInt(self, str), 3)
 
     def test_ComplexRomanChar(self):
-        str = "MCDXXVI"
+        str = "MCDLXXVI"
         self.assertEqual(RomanToInteger.romanToInt(self, str), 1476)
 
 
