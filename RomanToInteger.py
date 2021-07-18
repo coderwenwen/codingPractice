@@ -13,43 +13,71 @@ class RomanToInteger(object):
         """
         romanToIntDict = {}
         romanToIntDict["I"] = 1
-        romanToIntDict["V"] = 5
-        romanToIntDict["X"] = 10
-        romanToIntDict["L"] = 50
-        romanToIntDict["C"] = 100
-        romanToIntDict["D"] = 500
-        romanToIntDict["M"] = 1000
         romanToIntDict["IV"] = 4
         romanToIntDict["IX"] = 9
+        romanToIntDict["X"] = 10
         romanToIntDict["XL"] = 40
         romanToIntDict["XC"] = 90
+        romanToIntDict["C"] = 100
         romanToIntDict["CD"] = 500
         romanToIntDict["CM"] = 900
+
+        romanToIntDict["V"] = 5
+        romanToIntDict["L"] = 50
+        romanToIntDict["D"] = 500
+        romanToIntDict["M"] = 1000
 
         s.replace(" ", "")
         resultInt = 0
         if s == "":
             return 0
         else:
-            for index, character in enumerate(s):
-                if character in romanToIntDict:
-                    if (character == "I" or character == "X" or character == "C") and (s[index+1] == "V"):
-                        if ()
+            index = 0
+            while index < len(s):
+                character = s[index]
+                if character == "V" or character == "L" or character == "D" or character == "M":
+                    if character in romanToIntDict:
                         resultInt = resultInt + romanToIntDict[character]
+                        index = index + 1
+                else:
+                    if index + 1 < len(s):
+                        if s[index] + s[index+1] in romanToIntDict:
+                            resultInt = resultInt + romanToIntDict[s[index] + s[index+1]]
+                            index = index + 2
+                        else:
+                            resultInt = resultInt + romanToIntDict[s[index]]
+                            index = index + 1
+                    else:
+                        resultInt = resultInt + romanToIntDict[s[index]]
+                        index = index + 1
+            return resultInt
 
 
 
-
-
-
-
-
-
-
-class RomanToIntegerTestß(unittest.TestCase):
-    def test_emptyStr(self):
+class RomanToIntegerTest(unittest.TestCase):
+    def test_emptyRomanChar(self):
         str = ""
-        self.assertEqual(RomanToInteger.romanToInt(self, str), "")
+        self.assertEqual(RomanToInteger.romanToInt(self, str), 0)
+
+    def test_OneRomanChar(self):
+        str = "V"
+        self.assertEqual(RomanToInteger.romanToInt(self, str), 5)
+
+    def test_OneRomanChar(self):
+        str = "L"
+        self.assertEqual(RomanToInteger.romanToInt(self, str), 50)
+
+    def test_TwoRomanChar(self):
+        str = "XL"
+        self.assertEqual(RomanToInteger.romanToInt(self, str), 40)
+
+    def test_ThreeRomanChar(self):
+        str = "III"
+        self.assertEqual(RomanToInteger.romanToInt(self, str), 3)
+
+    def test_ComplexRomanChar(self):
+        str = "MCDXXVI"
+        self.assertEqual(RomanToInteger.romanToInt(self, str), 1476)
 
 
 
