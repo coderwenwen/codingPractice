@@ -14,18 +14,19 @@ class PlusOneClass(object):
             shouldIncrement = False
             while index >= 0:
                 if digits[index] != 9:
-                    digits[index] = digits[index] + 1
-                    index = index - 1
-                    if shouldIncrement:
+                    if index == len(digits) - 1 or shouldIncrement:
                         digits[index] = digits[index] + 1
-                else:
-                    if shouldIncrement and index == 0:
-                        digits.insert(0, 1)
-                        break
-                    else:
+                        shouldIncrement = False
+                    index = index - 1
+                elif digits[index] == 9:
+                    if shouldIncrement:
+                        digits[index] = 0
+                    elif index == len(digits) - 1:
                         digits[index] = 0
                         shouldIncrement = True
-                        index = index - 1
+                    index = index - 1
+            if shouldIncrement:
+                digits.insert(0, 1)
         return digits
 
 class PluOneTests(unittest.TestCase):
@@ -40,7 +41,7 @@ class PluOneTests(unittest.TestCase):
     def test_TwoDigitsWithNineCase(self):
         n = [1, 9]
         self.assertEqual(PlusOneClass.plusOne(self, n), [2, 0])
-        
+
     def test_NintyNineCase(self):
         n = [9, 9]
         self.assertEqual(PlusOneClass.plusOne(self, n), [1, 0, 0])
