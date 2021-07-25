@@ -18,16 +18,17 @@ class PlusOneClass(object):
                     if shouldIncrement:
                         digits[index] = digits[index] + 1
                 else:
-                    digits[index] = 0
-                    shouldIncrement = True
                     if shouldIncrement and index == 0:
                         digits.insert(0, 1)
+                    else:
+                        digits[index] = 0
+                        shouldIncrement = True
         return digits
 
 class PluOneTests(unittest.TestCase):
     def test_BaseCase(self):
-        n = 1
-        self.assertEqual(PlusOneClass.plusOne(self, n), 1)
+        n = [1]
+        self.assertEqual(PlusOneClass.plusOne(self, n), [2])
 
 
 
