@@ -33,5 +33,17 @@ class PluOneTests(unittest.TestCase):
         n = [1]
         self.assertEqual(PlusOneClass.plusOne(self, n), [2])
 
+    def test_TwoDigitsCase(self):
+        n = [1, 2]
+        self.assertEqual(PlusOneClass.plusOne(self, n), [1, 3])
+
+    def test_TwoDigitsWithNineCase(self):
+        n = [1, 9]
+        self.assertEqual(PlusOneClass.plusOne(self, n), [2, 0])
+        
+    def test_NintyNineCase(self):
+        n = [9, 9]
+        self.assertEqual(PlusOneClass.plusOne(self, n), [1, 0, 0])
+
 
 
