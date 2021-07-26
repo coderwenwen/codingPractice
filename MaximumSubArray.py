@@ -36,5 +36,9 @@ class MaximumSubArray(object):
             str = [-1, 3, 5, -10, 5, 5]
             self.assertEqual(MaximumSubArray.maxSubArray(self, str), 10)
 
+        def test_2SubArrays(self):
+            str = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+            self.assertEqual(MaximumSubArray.maxSubArray(self, str), 6)
+
 
 
