@@ -1,4 +1,5 @@
-class Solution(object):
+import unittest
+class BuddyString(object):
     def buddyStrings(self, s, goal):
         """
         :type s: str
@@ -6,12 +7,25 @@ class Solution(object):
         :rtype: bool
         https://leetcode.com/problems/buddy-strings/
         """
-        i = 0
-        while i + 1 < len(s):
-            lst = list(s)
-            lst[i], lst[i+1] = lst[i+1], lst[i]
-            if ''.join(lst) == goal:
+        if len(s) != len(goal):
+            return False
+        else:
+            i = 0
+            lstS = list(s)
+            lstGoal = list(goal)
+            while i < len(lstS):
+                if lstS[i] != lstGoal[i]:
+                    temp = lstS[i]
+                    lstS[i] = lstGoal[i]
+                    lstGoal[i] = temp
+                i = i + 1
+
+            if ''.join(lstS) == ''.join(goal):
                 return True
-            i = i + 1
         return False
 
+class BuddyStringTest(unittest.TestCase):
+    def test_EasyCase(self):
+        self.assertEqual(BuddyString.buddyStrings(self, "abab", "abab"), True)
+    def test_RepeatedWord(self):
+        self.assertEqual(BuddyString.buddyStrings(self, "aaaaaaabc", "aaaaaaacb"), True)
