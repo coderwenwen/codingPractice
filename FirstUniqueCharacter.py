@@ -12,10 +12,11 @@ class FirstUniqueCharacter(object):
             if lstS[index] not in keyValueDict:
                 keyValueDict[lstS[index]] = 1
             else:
-                return index
+                keyValueDict[lstS[index]] = keyValueDict[lstS[index]] + 1
             index = index + 1
-        return -1
+
+
 
 class FirstUniqueCharacterTest(unittest.TestCase):
     def test_case1(self):
-        self.assertEqual(FirstUniqueCharacter.firstUniqChar(self, "leetcode"), 2)
+        self.assertEqual(FirstUniqueCharacter.firstUniqChar(self, "leetcode"), 0)
