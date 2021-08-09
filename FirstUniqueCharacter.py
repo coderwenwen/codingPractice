@@ -15,6 +15,14 @@ class FirstUniqueCharacter(object):
                 keyValueDict[lstS[index]] = keyValueDict[lstS[index]] + 1
             index = index + 1
 
+        index = 0
+        while index < len(lstS):
+            if keyValueDict[lstS[index]] == 1:
+                return index
+            index = index + 1
+
+        return -1
+
 
 
 class FirstUniqueCharacterTest(unittest.TestCase):
