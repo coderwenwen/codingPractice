@@ -23,10 +23,7 @@ class MinDepthOfBinaryTree(object):
                     depthQueue.append((depthQueue[0][0].left, depthQueue[0][1] + 1))
                 if depthQueue[0][0].right != None:
                     depthQueue.append((depthQueue[0][0].right, depthQueue[0][1] + 1))
-
-                if len(depthQueue) == 1:
-                    break
-                else:
-                    depthQueue.pop(0)
-            return depthQueue[0][1]
+                elif depthQueue[0][0].left == None and depthQueue[0][0].right == None:
+                    return depthQueue[0][1]
+                depthQueue.pop(0)
 
