@@ -13,25 +13,20 @@ class MinDepthOfBinaryTree(object):
         :rtype: int
         https://leetcode.com/problems/minimum-depth-of-binary-tree/
         """
-        childQueue = []
-        childQueue.append(root)
-        depthCount = 0
         if not root:
             return 0
-        while len(childQueue) > 0:
-            for i in childQueue:
-                if i.left:
-                    childQueue.append(i.left)
-                    childQueue.pop(i)
-                    depthCount = depthCount + 1
-                if i.right:
-                    childQueue.append(i.right)
-                    childQueue.pop(i)
-                    depthCount = depthCount + 1
-                else:
-                    return depthCount
+        else:
+            depthQueue = []
+            depthQueue.append((root, 1))
+            while len(depthQueue) > 0:
+                if depthQueue[0][0].left != None:
+                    depthQueue.append((depthQueue[0][0].left, depthQueue[0][1] + 1))
+                if depthQueue[0][0].right != None:
+                    depthQueue.append((depthQueue[0][0].right, depthQueue[0][1] + 1))
 
-class MinDepthOfBinaryTreeTest(unittest.TestCase):
-    def test_case1(self):
-        self.assertEqual(MinDepthOfBinaryTree.minDepth(self, [3,9,20,null,null,15,7]), 1)
+                if len(depthQueue) == 1:
+                    break
+                else:
+                    depthQueue.pop(0)
+            return depthQueue[0][1]
 

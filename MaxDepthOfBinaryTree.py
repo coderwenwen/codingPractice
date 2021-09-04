@@ -1,3 +1,4 @@
+import unittest
 # Definition for a binary tree node.
 # class TreeNode(object):
 def __init__(self, val=0, left=None, right=None):
@@ -5,7 +6,7 @@ def __init__(self, val=0, left=None, right=None):
     self.left = left
     self.right = right
 
-class Solution(object):
+class MaxDepthOfBinaryTree(object):
     def maxDepth(self, root):
         """
         :type root: TreeNode
@@ -16,17 +17,18 @@ class Solution(object):
             return 0
         else:
             depthQueue = []
-            depthQueue.append(root)
-            depthCount = 0
+            depthQueue.append((root, 1))
             while len(depthQueue) > 0:
-                for i in depthQueue:
-                    if i.left:
-                        depthCount = depthCount + 1
-                        depthQueue.append(i.left)
-                    if i.right:
-                        depthCount = depthCount + 1
-                        depthQueue.append(i.right)
-                    else:
-                        depthQueue.pop(i)
-            return depthCount
+                if depthQueue[0][0].left != None:
+                    depthQueue.append((depthQueue[0][0].left, depthQueue[0][1] + 1))
+                if depthQueue[0][0].right != None:
+                    depthQueue.append((depthQueue[0][0].right, depthQueue[0][1] + 1))
+
+                if len(depthQueue) == 1:
+                    break
+                else:
+                    depthQueue.pop(0)
+            return depthQueue[0][1]
+
+
 
